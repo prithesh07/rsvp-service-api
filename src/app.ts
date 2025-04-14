@@ -8,6 +8,10 @@ import { loggingMiddleware } from './middlewares/loggingMiddleware';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.get('/', (req, res) => {
+    res.redirect('/api-docs');
+});
+
 app.use(json());
 app.use(loggingMiddleware);
 setupSwagger(app);
