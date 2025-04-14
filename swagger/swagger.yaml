@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: RSVP Service API
+  description: API for managing RSVP statuses of players.
+  version: 1.0.0
+paths:
+  /rsvp:
+    post:
+      summary: Add or update a player's RSVP status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                player:
+                  type: string
+                status:
+                  type: string
+                  enum: [Yes, No, Maybe]
+      responses:
+        '200':
+          description: Successfully added or updated RSVP
+        '400':
+          description: Invalid input
+    get:
+      summary: Get a list of confirmed attendees
+      responses:
+        '200':
+          description: A list of confirmed attendees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /rsvp/count:
+    get:
+      summary: Count total, confirmed, and declined responses
+      responses:
+        '200':
+          description: Count of responses
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  confirmed:
+                    type: integer
+                  declined:
+                    type: integer
+components:
+  schemas:
+    Rsvp:
+      type: object
+      properties:
+        player:
+          type: string
+        status:
+          type: string
+          enum: [Yes, No, Maybe]
